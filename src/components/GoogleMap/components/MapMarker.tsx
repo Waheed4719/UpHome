@@ -27,7 +27,17 @@ const MapMarker = ({
         <Marker icon={markerIcon} onClick={handleMarkerSelect} position={position}>
             {showInfoWindow && (
                 <InfoWindow options={{}} position={position} onCloseClick={handleInfoWindowClose}>
-                    {infoWindowContent}
+                    <div className='animated-infowindow relative'>
+                        {' '}
+                        <button
+                            className='text-black rounded-full shadow-md flex items-center justify-center absolute top-[15px] bg-white p-2 h-6 w-6 right-[20px] font-semibold'
+                            type='button'
+                            onClick={handleInfoWindowClose}
+                        >
+                            X
+                        </button>
+                        {infoWindowContent}
+                    </div>
                 </InfoWindow>
             )}
         </Marker>
