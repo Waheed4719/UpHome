@@ -1,22 +1,22 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import GoogleMapStyles from './styles/GoogleMapStyles.json';
 import { GoogleMapConfig } from '../../data/configs/GoogleMapConfig';
 import ListingCard from '../Listings/ListingCard';
 import MapMarker from './components/MapMarker';
 import HouseMarkerIcon from './icons/HouseMarker.svg';
+import { homes } from '../../data/dummy';
 
 type MapMarkerType = {
     id: number;
     position: google.maps.LatLng | google.maps.LatLngLiteral;
 };
-
-const markers: MapMarkerType[] = [
-    { id: 1, position: { lat: 44, lng: -80 } },
-    { id: 2, position: { lat: 45, lng: -80 } },
-    { id: 3, position: { lat: 46, lng: -80 } }
-];
-
+const markers = homes.map((home) => ({
+    id: home.id,
+    name: home.name,
+    position: home.position,
+    url: home.url
+}));
 const NewMap = () => {
     const mapRef = useRef<google.maps.Map>();
     const [selectedVenue, setSelectedVenue] = useState<MapMarkerType | null>(null);
@@ -26,6 +26,23 @@ const NewMap = () => {
         libraries: GoogleMapConfig.libraries
     });
 
+    const calculateMapBounds = () => {
+        const bounds = new google.maps.LatLngBounds();
+        console.log(markers);
+        markers?.forEach((marker) => {
+            bounds.extend(new google.maps.LatLng(marker.position.lat, marker.position.lng));
+        });
+
+        return bounds;
+    };
+
+    useEffect(() => {
+        if (mapRef.current) {
+            const newBounds = calculateMapBounds();
+            mapRef.current.setCenter(newBounds.getCenter());
+        }
+    }, [markers]);
+
     const handleDragEnd = () => {
         if (!mapRef.current) {
             return;
@@ -33,6 +50,7 @@ const NewMap = () => {
         const newPos = mapRef?.current?.getCenter();
         setMapCenter({ lat: newPos?.lat() ?? 0, lng: newPos?.lng() ?? 0 });
     };
+
     if (loadError) {
         console.log(loadError);
     }
@@ -51,6 +69,8 @@ const NewMap = () => {
                 }}
                 onLoad={(map: google.maps.Map) => {
                     mapRef.current = map;
+                    const newBounds = calculateMapBounds();
+                    mapRef.current.fitBounds(newBounds);
                 }}
                 onDragEnd={handleDragEnd}
                 mapContainerStyle={{ width: '100%', height: '100%' }}
@@ -68,7 +88,7 @@ const NewMap = () => {
                             position={marker.position}
                             markerOnClick={() => setSelectedVenue(marker)}
                             showInfoWindow={selectedVenue?.id === marker.id}
-                            infoWindowContent={<ListingCard />}
+                            infoWindowContent={<ListingCard listing={marker} />}
                             onInfoWindowClose={() => setSelectedVenue(null)}
                         />
                     ))}
