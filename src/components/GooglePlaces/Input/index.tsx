@@ -96,10 +96,8 @@ const GooglePlacesAutocomplete = () => {
                                 className=' text-ellipsis overflow-hidden text-left px-2 text-md w-full border-b-[1px] border-solid border-l-gray-300 py-2 hover:bg-gray-100 cursor-pointer'
                                 key={suggestion.description}
                                 onClick={(e) => {
-                                    console.log('reached here 2');
                                     e.stopPropagation();
                                     setDropdown(false);
-                                    console.log(suggestion);
                                     setInputText(suggestion.description);
                                 }}
                             >

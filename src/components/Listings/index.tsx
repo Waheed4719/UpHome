@@ -11,7 +11,7 @@ const Listings = () => {
                 <ListingSearch />
                 <button
                     type='button'
-                    className='bg-blue-500 text-white ml-auto px-4 py-2 rounded-sm hover:bg-blue-600'
+                    className='bg-blue-500 text-white ml-auto px-4 py-2 h-[42px] rounded-sm hover:bg-blue-600'
                     onClick={toggleDrawer}
                 >
                     Filter
