@@ -28,7 +28,6 @@ const NewMap = () => {
 
     const calculateMapBounds = () => {
         const bounds = new google.maps.LatLngBounds();
-        console.log(markers);
         markers?.forEach((marker) => {
             bounds.extend(new google.maps.LatLng(marker.position.lat, marker.position.lng));
         });

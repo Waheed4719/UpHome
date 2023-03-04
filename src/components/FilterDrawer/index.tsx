@@ -1,3 +1,6 @@
+import { useState, useEffect, useContext } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { FilterDrawerContext } from '../../contexts/FilterDrawerContext';
 import FilterHeader from './FilterHeader';
 import CheckBox from '../../common/components/CheckBox';
 import RangeSlider from '../../common/components/RangeSlider';
@@ -17,10 +20,33 @@ const features = [
 
 const styles = ['A-Frame', 'Dome', 'Cottage', 'Spanish'];
 
+const variants = {
+    active: { x: 0 },
+    inactive: { x: '-100%' }
+};
+
+// write a framer motion variant to slide the drawer from left to right and vice versa and that pushes the main content to the right
+
 const FilterDrawer = () => {
+    const controls = useAnimation();
+    const { isDrawerOpen: isActive, toggleDrawer } = useContext(FilterDrawerContext);
+    useEffect(() => {
+        controls.start(isActive ? 'active' : 'inactive').catch((err) => console.log(err));
+    }, [isActive, controls]);
+
     return (
-        <div className='flex flex-1 flex-col gap-4 max-w-[350px] items-start w-full border-r p-4'>
-            <FilterHeader />
+        <motion.div
+            animate={controls}
+            variants={variants}
+            transition={{ ease: 'easeInOut', duration: 0.5 }}
+            className='flex flex-1 flex-col gap-4 max-w-[350px] items-start w-full border-r p-4 absolute h-[calc(100vh-62px)] left-0 z-50 bg-white'
+        >
+            <FilterHeader
+                onClose={() => {
+                    console.warn('clicked on close drawer');
+                    toggleDrawer();
+                }}
+            />
             <h3 className='text-gray-400 font-semibold text-[12px] mb-2'>TYPE OF PLACE</h3>
             <div className='grid grid-cols-2 w-full'>
                 {typesOfPlaces.map((placeType) => (
@@ -62,7 +88,7 @@ const FilterDrawer = () => {
                     <CheckBox key={style} label={style} />
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 };
 
