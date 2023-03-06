@@ -18,15 +18,6 @@
         ]
     },
     {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
         "featureType": "road",
         "elementType": "all",
         "stylers": [
@@ -179,15 +170,6 @@
         "stylers": [
             {
                 "lightness": "-37"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
             }
         ]
     },
