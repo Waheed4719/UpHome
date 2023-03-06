@@ -1,4 +1,5 @@
 import { MarkerF as Marker, InfoWindowF as InfoWindow } from '@react-google-maps/api';
+import InfoWindowComponent from './InfoWindow';
 
 type Props = {
     position: google.maps.LatLng | google.maps.LatLngLiteral;
@@ -26,18 +27,23 @@ const MapMarker = ({
     return (
         <Marker icon={markerIcon} onClick={handleMarkerSelect} position={position}>
             {showInfoWindow && (
-                <InfoWindow options={{}} position={position} onCloseClick={handleInfoWindowClose}>
-                    <div className='animated-infowindow relative'>
-                        {' '}
-                        <button
-                            className='text-black rounded-full shadow-md flex items-center justify-center absolute top-[15px] bg-white p-2 h-6 w-6 right-[20px] font-semibold'
-                            type='button'
-                            onClick={handleInfoWindowClose}
-                        >
-                            X
-                        </button>
+                // <InfoWindow position={position} onCloseClick={handleInfoWindowClose}>
+                //     <div className='animated-infowindow relative'>
+                //         {' '}
+                //         <button
+                //             className='text-gray-600 text-2xl rounded-full shadow-md flex items-center justify-center absolute top-[15px] bg-white p-2 h-6 w-6 right-[20px] font-semibold'
+                //             type='button'
+                //             onClick={handleInfoWindowClose}
+                //         >
+                //             &times;
+                //         </button>
+                //         {infoWindowContent}
+                //     </div>
+                // </InfoWindow>
+                <InfoWindow position={position}>
+                    <InfoWindowComponent onClose={handleInfoWindowClose}>
                         {infoWindowContent}
-                    </div>
+                    </InfoWindowComponent>
                 </InfoWindow>
             )}
         </Marker>

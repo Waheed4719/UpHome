@@ -12,6 +12,7 @@ type MapMarkerType = {
     position: google.maps.LatLng | google.maps.LatLngLiteral;
 };
 const markers = homes.map((home) => ({
+    ...home,
     id: home.id,
     name: home.name,
     position: home.position,

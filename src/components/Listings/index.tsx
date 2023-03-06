@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { FilterDrawerContext } from '../../contexts/FilterDrawerContext';
 import ListingSearch from './ListingSearch';
 import ListingColumn from './ListingColumn';
+import ListingDetail from '../ListingDetail';
 
 const Listings = () => {
     const { toggleDrawer } = useContext(FilterDrawerContext);

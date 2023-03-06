@@ -25,8 +25,6 @@ const variants = {
     inactive: { x: '-100%' }
 };
 
-// write a framer motion variant to slide the drawer from left to right and vice versa and that pushes the main content to the right
-
 const FilterDrawer = () => {
     const controls = useAnimation();
     const { isDrawerOpen: isActive, toggleDrawer } = useContext(FilterDrawerContext);
@@ -41,12 +39,7 @@ const FilterDrawer = () => {
             transition={{ ease: 'easeInOut', duration: 0.5 }}
             className='flex flex-1 flex-col gap-4 max-w-[350px] items-start w-full border-r p-4 absolute h-[calc(100vh-62px)] left-0 z-50 bg-white'
         >
-            <FilterHeader
-                onClose={() => {
-                    console.warn('clicked on close drawer');
-                    toggleDrawer();
-                }}
-            />
+            <FilterHeader onClose={toggleDrawer} />
             <h3 className='text-gray-400 font-semibold text-[12px] mb-2'>TYPE OF PLACE</h3>
             <div className='grid grid-cols-2 w-full'>
                 {typesOfPlaces.map((placeType) => (
@@ -56,11 +49,7 @@ const FilterDrawer = () => {
 
             <div className='w-full gap-2 justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>PRICE RANGE</h3>
-                <RangeSlider
-                    min={0}
-                    max={1000}
-                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
-                />
+                <RangeSlider min={0} max={1000} onChange={() => {}} />
             </div>
             <div className='w-full justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>SIZE</h3>

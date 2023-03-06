@@ -6,26 +6,25 @@ import GoogleMap from './components/GoogleMap';
 import FilterDrawer from './components/FilterDrawer';
 import Listings from './components/Listings';
 import { FilterDrawerContext } from './contexts/FilterDrawerContext';
+import ListingDetail from './components/ListingDetail';
 
 const App = () => {
-    const { isDrawerOpen: isActive, toggleDrawer } = useContext(FilterDrawerContext);
+    const { isDrawerOpen: isActive } = useContext(FilterDrawerContext);
     return (
-        <AnimatePresence>
-            <div className='App'>
-                <Navbar />
-                <div className='flex'>
-                    <FilterDrawer />
-                    <motion.div
-                        className={`flex w-full ${
-                            isActive ? 'ml-[350px]' : 'ml-0'
-                        } duration-500 ease-in-out transition-[margin]`}
-                    >
-                        <Listings />
-                        <GoogleMap />
-                    </motion.div>
+        <div className='App'>
+            <Navbar />
+            <div className='flex'>
+                <FilterDrawer />
+                <div
+                    className={`flex w-full ${
+                        isActive ? 'ml-[350px]' : 'ml-0'
+                    } duration-500 ease-in-out transition-[margin]`}
+                >
+                    <Listings />
+                    <GoogleMap />
                 </div>
             </div>
-        </AnimatePresence>
+        </div>
     );
 };
 
