@@ -59,19 +59,27 @@ export const HomeSearchReducer = (state: HomeSearchType, action: HomeSearchActio
             };
         case 'SET_FILTERS': {
             const updatedFilters = { ...state.filters, ...action.payload };
+            const { minPrice, maxPrice, features } = { ...action.payload };
+
+            if (!minPrice && !maxPrice && features?.length === 0) {
+                return state;
+            }
             return {
                 ...state,
                 filters: updatedFilters,
                 filteredHomes: state.homes.filter((home) => {
-                    const { features } = updatedFilters;
                     const { features: homeFeatures } = home;
-                    if (features.length === 0) {
-                        return true;
+                    let isFeaturesIncluded = true;
+                    if (features && features?.length !== 0) {
+                        isFeaturesIncluded = features.every((feature) =>
+                            homeFeatures.includes(feature)
+                        );
                     }
-                    const isFeaturesIncluded = features.every((feature) =>
-                        homeFeatures.includes(feature)
-                    );
-                    return isFeaturesIncluded;
+                    let isPriceIncluded = true;
+                    if (minPrice && maxPrice) {
+                        isPriceIncluded = home.price >= minPrice && home.price <= maxPrice;
+                    }
+                    return isPriceIncluded && isFeaturesIncluded;
                 })
             };
         }
@@ -84,7 +92,6 @@ export const HomeSearchProvider = ({ children }: HomeSearchProviderProps) => {
     const [state, dispatch] = useReducer(HomeSearchReducer, HomeSearchInitialState);
     const contextValue = { state, dispatch };
     const memoizedContextValue = useMemo(() => contextValue, [state]);
-    console.log(state, memoizedContextValue);
     return (
         // eslint-disable-next-line react/jsx-no-constructed-context-values
         <HomeSearchContext.Provider value={memoizedContextValue}>

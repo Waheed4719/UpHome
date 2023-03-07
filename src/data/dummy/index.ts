@@ -126,7 +126,7 @@ export const homes: HomeType[] = [
         url: Home3 as string,
         features: ['Infinity Pool', 'Home Gym', 'Billiards Room'],
         type: 'House',
-        price: 5000000,
+        price: 1500,
         sqft: 7500,
         style: 'Dome',
         bedrooms: 6,

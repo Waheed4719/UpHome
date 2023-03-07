@@ -13,8 +13,8 @@ const SliderTrack = forwardRef(({ min, max }: SliderTrackProps, ref) => {
                 ref={ref as LegacyRef<HTMLDivElement> | null}
                 className='slider__range absolute rounded-[3px] h-[5px] bg-[#9fe5e1] z-[1]'
             />
-            <div className='absolute left-[6px] text-[12px] text-black mt-2'>{min}</div>
-            <div className='absolute right-[6px] text-[12px] text-black mt-2'>{max}</div>
+            <div className='absolute left-[6px] text-[12px] text-black mt-2'>{min} $</div>
+            <div className='absolute right-[6px] text-[12px] text-black mt-2'>{max} $</div>
         </div>
     );
 });

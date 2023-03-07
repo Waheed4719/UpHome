@@ -1,15 +1,10 @@
-import { useEffect, useContext, useReducer } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { FilterDrawerContext } from '../../contexts/FilterDrawerContext';
 import FilterHeader from './FilterHeader';
 import CheckBox from '../../common/components/CheckBox';
 import RangeSlider from '../../common/components/RangeSlider';
-import {
-    HomeSearchReducer,
-    HomeSearchInitialState,
-    HomeSearchType,
-    HomeSearchContext
-} from '../../contexts/HomeSearchContext';
+import { HomeSearchType, HomeSearchContext } from '../../contexts/HomeSearchContext';
 
 const typesOfPlaces = ['All', 'Office', 'Building', 'Shop', 'Apartment', 'House'];
 
@@ -38,21 +33,33 @@ const FilterDrawer = () => {
         controls.start(isActive ? 'active' : 'inactive').catch((err) => console.error(err));
     }, [isActive, controls]);
     const { state, dispatch } = useContext(HomeSearchContext);
-    // const [state, dispatch] = useReducer(HomeSearchReducer, HomeSearchInitialState);
     const { filters } = state;
-    const { features, type, style } = filters;
+    const { features, minPrice, maxPrice } = filters;
 
-    const handleFeatures = (val: boolean, label: string) => {
+    const setFilters = (payload: Partial<HomeSearchType['filters']>) => {
         dispatch({
             type: 'SET_FILTERS',
             payload: {
-                ...filters,
-                features: val
-                    ? [...features, label]
-                    : features.filter((feature) => feature !== label)
+                ...payload
             }
         });
     };
+
+    const handleFeaturesChange = (val: boolean, label: string) => {
+        setFilters({
+            features: val ? [...features, label] : features.filter((feature) => feature !== label)
+        });
+    };
+
+    const handlePriceChange = ({ min, max }: { min: number; max: number }) => {
+        if (minPrice !== min || maxPrice !== max) {
+            setFilters({
+                minPrice: min,
+                maxPrice: max
+            });
+        }
+    };
+
     return (
         <motion.div
             animate={controls}
@@ -70,7 +77,7 @@ const FilterDrawer = () => {
 
             <div className='w-full gap-2 justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>PRICE RANGE</h3>
-                <RangeSlider min={0} max={5000} onChange={() => {}} />
+                <RangeSlider min={0} max={5000} onChange={handlePriceChange} />
             </div>
             <div className='w-full justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>SIZE</h3>
@@ -89,7 +96,7 @@ const FilterDrawer = () => {
             <h3 className='text-gray-400 font-semibold text-[12px]'>FEATURES</h3>
             <div className='grid grid-cols-2 w-full'>
                 {featureValues.map((feature) => (
-                    <CheckBox key={feature} onChange={handleFeatures} label={feature} />
+                    <CheckBox key={feature} onChange={handleFeaturesChange} label={feature} />
                 ))}
             </div>
             <h3 className='text-gray-400 font-semibold text-[12px]'>STYLE</h3>

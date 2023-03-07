@@ -51,8 +51,11 @@ const RangeSlider = ({ min, max, onChange }: RangeSliderProps) => {
 
     // Get min and max values when their state changes
     useEffect(() => {
-        onChange({ min: minVal, max: maxVal });
+        // onChange({ min: minVal, max: maxVal });
+        const handler = setTimeout(() => onChange({ min: minVal, max: maxVal }), 500);
+        return () => clearTimeout(handler);
     }, [minVal, maxVal, onChange]);
+
     return (
         <div className='relative w-full flex pb-8'>
             <input
