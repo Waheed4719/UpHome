@@ -41,10 +41,14 @@ const ListingCard = ({ listing, onListingSelect }: ListingCardProps) => {
             <div className='h-[1px] w-full my-1 bg-gray-200' />
             <div className='flex gap-2 justify-between'>
                 <div>
-                    <p className='text-sm text-gray-400'>{listing.bedrooms} bedroom</p>
+                    <p className='text-sm text-gray-400'>
+                        {listing.bedrooms} bedroom({listing.bedrooms > 1 ? 's' : ''})
+                    </p>
                 </div>
                 <div>
-                    <p className='text-sm text-gray-400'>{listing.bathrooms} bathroom</p>
+                    <p className='text-sm text-gray-400'>
+                        {listing.bathrooms} bathroom({listing.bathrooms > 1 ? 's' : ''})
+                    </p>
                 </div>
                 <div>
                     <p className='text-sm text-gray-400'>{listing.sqft} sqft</p>

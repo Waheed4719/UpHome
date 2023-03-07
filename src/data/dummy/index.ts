@@ -94,9 +94,9 @@ export const homes: HomeType[] = [
         type: 'House',
         price: 2000000,
         sqft: 3500,
-        style: 'A-Frame',
+        style: 'Cottage',
         bedrooms: 4,
-        bathrooms: 3.5,
+        bathrooms: 3,
         position: {
             lat: 37.345415,
             lng: -121.903044
@@ -113,7 +113,7 @@ export const homes: HomeType[] = [
         sqft: 5500,
         style: 'A-Frame',
         bedrooms: 5,
-        bathrooms: 4.5,
+        bathrooms: 4,
         position: {
             lat: 37.361372,
             lng: -122.025011
@@ -145,7 +145,7 @@ export const homes: HomeType[] = [
         type: 'House',
         price: 3200,
         sqft: 10000,
-        style: 'A-Frame',
+        style: 'Spanish',
         bedrooms: 8,
         bathrooms: 10,
         position: {
@@ -164,7 +164,7 @@ export const homes: HomeType[] = [
         sqft: 5000,
         style: 'Cottage',
         bedrooms: 4,
-        bathrooms: 4.5,
+        bathrooms: 4,
         position: {
             lat: 37.352267,
             lng: -121.93752
@@ -179,7 +179,7 @@ export const homes: HomeType[] = [
         type: 'House',
         price: 2200,
         sqft: 1500,
-        style: 'A-Frame',
+        style: 'Cottage',
         bedrooms: 2,
         bathrooms: 1,
         position: {

@@ -1,13 +1,19 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext, useReducer } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { FilterDrawerContext } from '../../contexts/FilterDrawerContext';
 import FilterHeader from './FilterHeader';
 import CheckBox from '../../common/components/CheckBox';
 import RangeSlider from '../../common/components/RangeSlider';
+import {
+    HomeSearchReducer,
+    HomeSearchInitialState,
+    HomeSearchType,
+    HomeSearchContext
+} from '../../contexts/HomeSearchContext';
 
 const typesOfPlaces = ['All', 'Office', 'Building', 'Shop', 'Apartment', 'House'];
 
-const features = [
+const featureValues = [
     'AC & Heating',
     'Clubhouse',
     'Dishwasher',
@@ -29,9 +35,24 @@ const FilterDrawer = () => {
     const controls = useAnimation();
     const { isDrawerOpen: isActive, toggleDrawer } = useContext(FilterDrawerContext);
     useEffect(() => {
-        controls.start(isActive ? 'active' : 'inactive').catch((err) => console.log(err));
+        controls.start(isActive ? 'active' : 'inactive').catch((err) => console.error(err));
     }, [isActive, controls]);
+    const { state, dispatch } = useContext(HomeSearchContext);
+    // const [state, dispatch] = useReducer(HomeSearchReducer, HomeSearchInitialState);
+    const { filters } = state;
+    const { features, type, style } = filters;
 
+    const handleFeatures = (val: boolean, label: string) => {
+        dispatch({
+            type: 'SET_FILTERS',
+            payload: {
+                ...filters,
+                features: val
+                    ? [...features, label]
+                    : features.filter((feature) => feature !== label)
+            }
+        });
+    };
     return (
         <motion.div
             animate={controls}
@@ -49,7 +70,7 @@ const FilterDrawer = () => {
 
             <div className='w-full gap-2 justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>PRICE RANGE</h3>
-                <RangeSlider min={0} max={1000} onChange={() => {}} />
+                <RangeSlider min={0} max={5000} onChange={() => {}} />
             </div>
             <div className='w-full justify-start items-start flex flex-col'>
                 <h3 className='text-gray-400 font-semibold text-[12px]'>SIZE</h3>
@@ -67,8 +88,8 @@ const FilterDrawer = () => {
 
             <h3 className='text-gray-400 font-semibold text-[12px]'>FEATURES</h3>
             <div className='grid grid-cols-2 w-full'>
-                {features.map((feature) => (
-                    <CheckBox key={feature} label={feature} />
+                {featureValues.map((feature) => (
+                    <CheckBox key={feature} onChange={handleFeatures} label={feature} />
                 ))}
             </div>
             <h3 className='text-gray-400 font-semibold text-[12px]'>STYLE</h3>

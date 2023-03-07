@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import SliderTrack from './components/SliderTrack';
 
 type RangeSliderMinMaxType = { min: number; max: number };
 
@@ -52,7 +53,6 @@ const RangeSlider = ({ min, max, onChange }: RangeSliderProps) => {
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, onChange]);
-
     return (
         <div className='relative w-full flex pb-8'>
             <input
@@ -82,15 +82,7 @@ const RangeSlider = ({ min, max, onChange }: RangeSliderProps) => {
                 className='thumb z-[4] pointer-events-none absolute h-0 w-full outline-none'
             />
 
-            <div className='relative w-full'>
-                <div className='slider__track absolute rounded-[3px] h-[5px] bg-[#ced4da] w-full z-[1]' />
-                <div
-                    ref={range}
-                    className='slider__range absolute rounded-[3px] h-[5px] bg-[#9fe5e1] z-[1]'
-                />
-                <div className='absolute left-[6px] text-[12px] text-black mt-2'>{minVal}</div>
-                <div className='absolute right-[6px] text-[12px] text-black mt-2'>{maxVal}</div>
-            </div>
+            <SliderTrack ref={range} min={minVal} max={maxVal} />
         </div>
     );
 };
