@@ -8,6 +8,7 @@ import { useState } from 'react';
 import LocationIcon from '../../assets/icons/LocationIcon';
 import ContactIcon from '../../assets/icons/ContactIcon';
 import MailIcon from '../../assets/icons/MailIcon';
+import PhoneIcon from '../../assets/icons/PhoneIcon';
 
 const images = [House1, House2, House3, House4, House5];
 
@@ -20,15 +21,15 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
     return (
         <Modal size='lg' title='Listing Detail' open={open} onClose={onClose}>
             <div className='flex flex-col gap-2'>
-                <div className='grid grid-cols-5 gap-2 h-[400px]'>
-                    <div className='w-full bg-black h-[300px] grid col-span-3'>
+                <div className='grid grid-cols-5 gap-4 h-[400px]'>
+                    <div className='w-full bg-black h-[400px] col-span-5 md:col-span-3 '>
                         <img
                             className='w-full h-full object-contain'
                             src={images[activeImage]}
                             alt='House 1'
                         />
                     </div>
-                    <div className='w-full gap-1 overflow-x-scroll pb-2 grid grid-cols-2 col-span-2'>
+                    <div className='w-full gap-1 overflow-x-scroll pr-2 pb-2 grid grid-cols-2 col-span-5 md:col-span-2'>
                         {Array(6)
                             .fill(0)
                             .map((_, i) => (
@@ -48,7 +49,7 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                 </div>
 
                 <div className='px-4'>
-                    <div className='flex flex-col md:flex-row'>
+                    <div className='flex flex-col md:flex-row gap-4'>
                         <div className='w-full md:w-2/3 '>
                             <h1 className='text-3xl font-bold mb-0'>Golden Gate Bridge</h1>
                             <h3 className='text-gray-500 flex gap-2 mb-4'>
@@ -66,12 +67,9 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                                 <li>Bathrooms - 2</li>
                                 <li>Size - 800 sqft</li>
                             </ul>
-                            <p className='text-gray-700 leading-normal'>
-                                This product comes with a 30-day money-back guarantee.
-                            </p>
                         </div>
                         <div className='w-full md:w-1/3 md:pl-8'>
-                            <h1 className='text-3xl font-bold mb-4'>Contact</h1>
+                            <h1 className='text-2xl mb-4'>Contact</h1>
 
                             <h3 className='text-gray-500 flex gap-2 mb-4'>
                                 <ContactIcon />
@@ -80,6 +78,10 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
 
                             <p className='flex gap-2 text-gray-500 leading-normal mb-4'>
                                 <MailIcon /> dmc4719@gmail.com
+                            </p>
+
+                            <p className='flex gap-2 text-gray-500 leading-normal mb-4'>
+                                <PhoneIcon /> +880 172 172 1534
                             </p>
                             <form>
                                 <div className='relative mb-2'>
