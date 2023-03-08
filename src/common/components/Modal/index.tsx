@@ -16,7 +16,8 @@ type ModalProps = {
 const modalDocument = document.querySelector('#portal');
 
 const sizes = {
-    lg: 'w-[calc(100vw-30px)] h-[calc(100vh-30px)]',
+    xl: 'w-[calc(100vw-30px)] h-[calc(100vh-30px)]',
+    lg: 'w-[calc(1000px)] h-[calc(100vh-30px)] max-w-full',
     md: 'w-[600px] max-w-full h-[600px]',
     sm: 'w-[fit-content] h-[fit-content]'
 };

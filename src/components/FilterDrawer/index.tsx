@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { FilterDrawerContext } from '../../contexts/FilterDrawerContext';
 import FilterHeader from './FilterHeader';
