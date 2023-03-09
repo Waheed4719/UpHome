@@ -16,7 +16,13 @@ type ListingDetailProps = {
     open: boolean;
     onClose: () => void;
 };
+
+const features = ['AC & Heating', 'Dishwasher', 'Balcony', 'Pool', 'Fitness Center'];
+
 const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
+    {
+        console.log(features);
+    }
     const [activeImage, setActiveImage] = useState(0);
     return (
         <Modal size='lg' title='Listing Detail' open={open} onClose={onClose}>
@@ -56,6 +62,15 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                                 <LocationIcon />
                                 Chicago - Illinois, US 60622
                             </h3>
+
+                            <div className='flex gap-2 flex-wrap mb-2'>
+                                Features:{' '}
+                                {features.map((feature) => (
+                                    <span className='flex items-center justify-center py-1 px-2 bg-blue-400 text-white text-sm rounded-md'>
+                                        {feature}
+                                    </span>
+                                ))}
+                            </div>
 
                             <p className='text-gray-700 leading-normal mb-4'>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
