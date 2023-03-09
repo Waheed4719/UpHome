@@ -20,9 +20,6 @@ type ListingDetailProps = {
 const features = ['AC & Heating', 'Dishwasher', 'Balcony', 'Pool', 'Fitness Center'];
 
 const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
-    {
-        console.log(features);
-    }
     const [activeImage, setActiveImage] = useState(0);
     return (
         <Modal size='lg' title='Listing Detail' open={open} onClose={onClose}>
@@ -31,7 +28,7 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                     <div className='w-full bg-black h-[400px] col-span-5 md:col-span-3 '>
                         <img
                             className='w-full h-full object-contain'
-                            src={images[activeImage]}
+                            src={images[activeImage] as string}
                             alt='House 1'
                         />
                     </div>
@@ -46,7 +43,11 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                                             setActiveImage(i > 4 ? i % images.length : i)
                                         }
                                         className='w-full h-full object-contain'
-                                        src={i > 4 ? images[i % images.length] : images[i]}
+                                        src={
+                                            (i > 4
+                                                ? images[i % images.length]
+                                                : images[i]) as string
+                                        }
                                         alt='House 1'
                                     />
                                 </div>
@@ -54,14 +55,22 @@ const ListingDetail = ({ open, onClose }: ListingDetailProps) => {
                     </div>
                 </div>
 
-                <div className='px-4'>
+                <div className='px-2'>
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='w-full md:w-2/3 '>
-                            <h1 className='text-3xl font-bold mb-0'>Golden Gate Bridge</h1>
+                            <h1 className='text-3xl  mb-0'>Golden Gate Bridge</h1>
                             <h3 className='text-gray-500 flex gap-2 mb-4'>
                                 <LocationIcon />
                                 Chicago - Illinois, US 60622
                             </h3>
+
+                            <div className='flex gap-2 flex-wrap mb-2'>
+                                Price:{' '}
+                                <h4 className='text-blue-600 font-bold '>
+                                    $1530
+                                    <span className='text-gray-400 font-normal'>/mo</span>
+                                </h4>
+                            </div>
 
                             <div className='flex gap-2 flex-wrap mb-2'>
                                 Features:{' '}
