@@ -31,7 +31,7 @@ const Navbar = () => {
     }
     return <div className="flex items-center py-3 px-6 border-b">
         <a href="/" className="flex items-center mr-4 text-[24px] font-extrabold text-blue-700 w-[200px] text-left">uphome</a>
-        <div className="flex gap-1">
+        <div className="hidden gap-1 md:flex">
             {navLinks?.map(navLink => <NavLink key={navLink.text} onClick={(link) => handleLinkSelect(link)} navLink={navLink} active={activeLink === navLink.link} />)}
         </div>
         <div />

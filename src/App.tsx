@@ -6,7 +6,6 @@ import GoogleMap from './components/GoogleMap';
 import FilterDrawer from './components/FilterDrawer';
 import Listings from './components/Listings';
 import { FilterDrawerContext } from './contexts/FilterDrawerContext';
-import ListingDetail from './components/ListingDetail';
 
 const App = () => {
     const { isDrawerOpen: isActive } = useContext(FilterDrawerContext);
@@ -17,7 +16,7 @@ const App = () => {
                 <FilterDrawer />
                 <div
                     className={`flex w-full ${
-                        isActive ? 'ml-[350px]' : 'ml-0'
+                        isActive ? 'md:ml-[350px]' : 'md:ml-0'
                     } duration-500 ease-in-out transition-[margin]`}
                 >
                     <Listings />

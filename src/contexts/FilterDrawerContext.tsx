@@ -8,12 +8,12 @@ type FilterDrawerProviderProps = {
     children: React.ReactNode;
 };
 export const FilterDrawerContext = createContext<FilterDrawerContextType>({
-    isDrawerOpen: true,
+    isDrawerOpen: false,
     toggleDrawer: () => {}
 });
 
 export const FilterDrawerProvider = ({ children }: FilterDrawerProviderProps) => {
-    const [isDrawerOpen, setDrawerOpen] = useState(true);
+    const [isDrawerOpen, setDrawerOpen] = useState(false);
 
     const toggleDrawer = useCallback(() => {
         setDrawerOpen((prevDrawerState) => {

@@ -59,9 +59,9 @@ const FilterDrawer = () => {
             });
         }
     };
-
     return (
         <motion.div
+            initial='inactive'
             animate={controls}
             variants={variants}
             transition={{ ease: 'easeInOut', duration: 0.5 }}
